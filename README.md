@@ -9,7 +9,7 @@ MeCab API docker images based on alpine
 docker run --rm -p 8080:8080 smizy/mecab-api
 
 # with gunicorn
-docker run --rm -p 8080:8080 smizy/mecab-api gunicorn -w 4 -b 0.0.0.0:80 main:app
+docker run --rm -p 8080:8080 smizy/mecab-api gunicorn -w 4 -b 0.0.0.0:8080 main:app
 
 # api call (change "localhost" as your docker env)
 curl -s "http://localhost:8080/parse?q=%E5%A4%96%E5%9B%BD%E4%BA%BA%E5%8F%82%E6%94%BF%E6%A8%A9%0A" |
