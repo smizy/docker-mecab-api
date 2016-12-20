@@ -1,5 +1,7 @@
 FROM smizy/mecab:0.996-alpine
 
+ENV MECAB_DICDIR  /usr/local/lib/mecab/dic/mecab-ipadic-neologd
+
 RUN set -x \
     && apk --no-cache add \
         ca-certificates \
@@ -18,14 +20,14 @@ RUN set -x \
     ## clean
     && apk del .builddeps \
     && find /usr/lib/python3.5 -name __pycache__ | xargs rm -r \
-    && rm -rf /root/.[acpw]* 
+    && rm -rf /root/.[acpw]* \
+    ## use neologd dic as default
+    && sed -i.bak -E 's@^(dicdir *= *)([^ ]+)@\1'${MECAB_DICDIR}'@' /usr/local/etc/mecabrc
 
 COPY entrypoint.sh   /usr/local/bin/
 COPY main.py         /code/
 
 WORKDIR /code
-
-ENV MECAB_DICDIR  /usr/local/lib/mecab/dic/mecab-ipadic-neologd
 
 ENTRYPOINT [ "/sbin/tini", "--", "entrypoint.sh" ]
 
