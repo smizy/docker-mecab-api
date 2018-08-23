@@ -16,10 +16,10 @@ RUN set -x \
         bottle \
         gunicorn \        
         mecab-python3 \
-    && ln -s /usr/bin/python3.5 /usr/bin/python \
+    && ln -s /usr/bin/python3.6 /usr/bin/python \
     ## clean
     && apk del .builddeps \
-    && find /usr/lib/python3.5 -name __pycache__ | xargs rm -r \
+    && find /usr/lib/python3.6 -name __pycache__ | xargs rm -r \
     && rm -rf /root/.[acpw]* \
     ## use neologd dic as default
     && sed -i.bak -E 's@^(dicdir *= *)([^ ]+)@\1'${MECAB_DICDIR}'@' /usr/local/etc/mecabrc
